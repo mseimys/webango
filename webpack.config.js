@@ -28,16 +28,25 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, "build"),
-    filename: "[name].[hash].js"
+    filename: "[name].[contenthash].js"
   },
+
   plugins: [
     new BundleTracker({
       filename: "./webpack-stats.json"
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[hash].css"
-    })
+      filename: "[name].[contenthash].css"
+    }),
   ],
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      automaticNameDelimiter: '-',
+    }
+  },
+
   module: {
     rules: [{
         test: /\.ts(x?)$/,
