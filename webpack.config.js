@@ -2,10 +2,10 @@ const path = require("path");
 const BundleTracker = require("webpack-bundle-tracker");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
-  mode: "development",
+module.exports = (_, { mode = "development" }) => ({
+  mode,
 
-  devtool: "source-map",
+  devtool: mode == "development" ? "source-map" : "(none)",
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     host: "0.0.0.0",
@@ -37,23 +37,26 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css"
-    }),
+    })
   ],
 
   optimization: {
     splitChunks: {
-      chunks: 'all',
-      automaticNameDelimiter: '-',
+      chunks: "all",
+      automaticNameDelimiter: "-"
     }
   },
 
   module: {
-    rules: [{
-        test: /\.ts(x?)$/,
+    rules: [
+      {
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [{
-          loader: "ts-loader"
-        }]
+        use: [
+          {
+            loader: "ts-loader"
+          }
+        ]
       },
       {
         test: /\.(css|sass|scss)$/i,
@@ -73,12 +76,7 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        enforce: "pre",
-        test: /\.js$/,
-        loader: "source-map-loader"
       }
     ]
   }
-};
+});

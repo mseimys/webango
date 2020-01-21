@@ -14,12 +14,12 @@ function exceptional() {
 }
 
 export const Hello = (props: HelloProps) => (
-  <>
+  <div className="box">
     <h1>
       Hello from {props.compiler} and {props.framework}!
     </h1>
     <button onClick={exceptional}>THROW</button>
-  </>
+  </div>
 );
 
 ReactDOM.render(
