@@ -32,6 +32,6 @@
     "webpack": "^4.41.5",
     "webpack-bundle-tracker": "^0.4.3",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.3"
+    "webpack-dev-server": "^4.15.0"
   }
 }
